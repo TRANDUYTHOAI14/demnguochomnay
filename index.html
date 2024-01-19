@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+     body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+.countdown-item {
+    font-size: 2em;
+}
+.time {
+  color:red;
+}
+.countdown-time {
+    background-color: green;
+    padding: 10px;
+    border-radius: 18px 0;
+    color: white;
+}
+ </style>
+    <title>Countdown Timer</title>
+</head>
+<body>
+    <div class="container">
+        <div class="countdown-item">
+            <span id="hours" class="countdown-time">00 </span> 
+            <span id="minutes" class="countdown-time">00 </span>
+          <span id="seconds" class="countdown-time">00 </span> 
+        </div>
+    </div>
+
+ 
+ 
+
+ <script>
+     window.addEventListener('DOMContentLoaded', function() {
+    var hoursElement = document.getElementById('hours');
+    var minutesElement = document.getElementById('minutes');
+    var secondsElement = document.getElementById('seconds');
+
+    function updateCountdown() {
+        var currentTime = new Date();
+        var targetTime = new Date();
+
+        // Set the target time to 23PM
+        targetTime.setHours(23);
+        targetTime.setMinutes(59);
+        targetTime.setSeconds(59);
+
+        var timeDifference = targetTime - currentTime;
+
+        // Calculate hours, minutes, and seconds
+        var hours = Math.floor(timeDifference / (1000 * 60 * 60));
+        var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        // Update the countdown elements
+        hoursElement.innerHTML = ('0' + hours).slice(-2);
+        minutesElement.innerHTML = ('0' + minutes).slice(-2);
+        secondsElement.innerHTML = ('0' + seconds).slice(-2);
+
+        if (timeDifference <= 0) {
+            // Reset the countdown to 6:00 AM the next day
+            targetTime.setDate(targetTime.getDate() + 1);
+            targetTime.setHours(6);
+            targetTime.setMinutes(0);
+            targetTime.setSeconds(0);
+        }
+    }
+
+    // Update the countdown every second
+    setInterval(updateCountdown, 1000);
+});
+ </script>
+</body>
+</html>
